@@ -62,15 +62,15 @@ export default function Home() {
   }
   if (loadingState === 'loaded' && !nfts.length) return (<h1 className="px-20 py-10 text-3xl">Currently no asset in marketplace</h1>)
   return (
-    <div className="flex justify-center">
-      <div className="px-4 " style={{ maxWidth: '1600px' }}>
+    <div className="flex justify-center m-20">
+      <div className="px-4" style={{ maxWidth: '1600px' }}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
           {
             nfts.map((nft, i) => (
-              <div key={i} className="border shadow rounded-xl overflow-hidden">
+              <div key={i} className="border shadow rounded-xl overflow-hidden bg-white px-3">
 
                 <>
-            <iframe className="rounded mt-4"
+            <iframe className="rounded-xl mt-4"
               src={nft.image}
               frameBorder="0"
               //scrolling="auto"
@@ -81,13 +81,14 @@ export default function Home() {
             </>
 
                 <div className="p-4">
-                  <p style={{ height: '64px' }} className="text-2xl font-semibold">{nft.name}</p>
+                  <p style={{ height: '64px' }} className="text-2xl font-bold">{nft.name}</p>
                   <div style={{ height: '70px', overflow: 'hidden' }}>
-                    <p className="text-gray-400">{nft.description}</p>
+                    <p className="text-gray-500">{nft.description}</p>
                   </div>
                 </div>
-                <div className="p-4 bg-black">
-                  <p className="text-2xl font-bold text-white">{nft.price} MATIC</p>
+
+                <div className="p-4">
+                  <p className="text-2xl font-bold text-black">{nft.price} MATIC</p>
                   <button className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" onClick={() => buyNft(nft)}>Buy</button>
                 </div>
               </div>
