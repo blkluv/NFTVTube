@@ -64,7 +64,7 @@ function MyApp({ Component, pageProps }) {
       },
       {
         headers: {
-          "x-api-key": "951cabe04de143b98b75c4d4ed4d2d99",
+          "x-api-key": "e4777a2e-a801-4bd9-a105-97ea95c1f13b_100",
         },
       }
     );
@@ -75,7 +75,7 @@ function MyApp({ Component, pageProps }) {
       "https://api-eu1.tatum.io/v3/kms/" + signatureId,
       {
         headers: {
-          "x-api-key": "951cabe04de143b98b75c4d4ed4d2d99",
+          "x-api-key": "e4777a2e-a801-4bd9-a105-97ea95c1f13b_100",
         },
       }
     );
