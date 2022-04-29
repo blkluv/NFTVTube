@@ -66,56 +66,73 @@ const NFTPage = () => {
     });
   };
 
-  // async function buyNft(nft) {
-  //     alert("calling")
-  //     /* needs the user to sign the transaction, so will use Web3Provider and sign it */
-  //     const web3Modal = new Web3Modal();
-  //     const connection = await web3Modal.connect();
-  //     const provider = new ethers.providers.Web3Provider(connection);
-  //     const signer = provider.getSigner();
-  //     const contract = new ethers.Contract(
-  //       marketplaceAddress,
-  //       NFTMarketplace.abi,
-  //       signer
-  //     );
+  async function buyNft(nft) {
+    /* needs the user to sign the transaction, so will use Web3Provider and sign it */
+    
+    try {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        marketplaceAddress,
+        NFTMarketplace.abi,
+        signer
+      );
+      /* user will be prompted to pay the asking proces to complete the transaction */
+      
+      const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
+      const transaction = await contract.createMarketSale(nft.tokenId, {
+        value: price,
+      });
+      await transaction.wait();
+    } catch (err) {
+      console.log("buy Error: ", err)
+    }
 
-  //     /* user will be prompted to pay the asking proces to complete the transaction */
-  //     const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
-  //     const transaction = await contract.createMarketSale(nft.tokenId, {
-  //       value: price,
-  //     });
-  //     await transaction.wait();
-  //   }
+}
 
   return (
     <div>
       {isLoaded ? (
         <div className="flex items-start justify-center">
           <div className="flex flex-col bg-gray-900 items-center w-screen mx-20">
-            
-              <iframe
-                className="rounded-xl object-cover w-3/6 h-96 mx-36 mt-12"
-                src={selectedNft.image}
-              ></iframe>
+            <iframe
+              className="rounded-xl object-cover w-3/6 h-96 mx-36 mt-12"
+              src={selectedNft.image}
+            ></iframe>
 
-              <div className="flex items-center justify-start w-full my-10 px-32">
-                <div className="my-6 w-3/4 m-5">
-                  <h1 className="text-6xl font-semibold text-white uppercase">
-                    {selectedNft.name}
-                  </h1>
-                  <p className="text-xl text-white my-10">
-                    {selectedNft.description}
-                  </p>
-                </div>
-                <div className="flex flex-col items-center w-1/4 bg-g m-5">
-                  <h1 className="text-white text-3xl  my-3">{selectedNft.price} MATIC</h1>
-                  <button className="my-3 text-white text-md bg-pink-600 rounded-md px-20 py-4 ">
-                    Buy Now
-                  </button>
-                </div>
+            <div className="flex items-center justify-start w-full my-10 px-32">
+              <div className="my-6 w-3/4 m-5">
+                <h1 className="text-6xl font-semibold text-white uppercase">
+                  {selectedNft.name}
+                </h1>
+                <p className="text-xl text-white my-10">
+                  {selectedNft.description}
+                </p>
+              </div>
+              <div className="flex flex-col items-center w-1/4 bg-g m-5">
+                <h1 className="text-white text-3xl  my-3">
+                  {selectedNft.price} MATIC
+                </h1>
+                <button
+                  className="my-3 text-white text-md bg-pink-600 rounded-md px-20 py-4 "
+                  onClick={
+                    () => {
+                      try {
+                       buyNft(selectedNft)
+                      }catch(err) {
+                          console.log("Buy error:", err)
+                     }
+                   }
+                  }
+                >
+                  Buy Now
+                </button>
               </div>
             </div>
           </div>
+        </div>
       ) : (
         <h1> Not Loaded </h1>
       )}

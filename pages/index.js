@@ -17,7 +17,6 @@ export default function Home() {
   }, []);
 
   async function loadNFTs() {
-    /* create a generic provider and query for unsold market items */
     const provider = new ethers.providers.JsonRpcProvider(
       "https://rpc-mumbai.matic.today"
     );
@@ -26,12 +25,9 @@ export default function Home() {
       NFTMarketplace.abi,
       provider
     );
-    const data = await contract.fetchMarketItems();
 
-    /*
-     *  map over items returned from smart contract and format
-     *  them as well as fetch their token metadata
-     */
+    const data = await contract.fetchMarketItems();
+    
     const items = await Promise.all(
       data.map(async (i) => {
         const tokenUri = await contract.tokenURI(i.tokenId);
@@ -52,6 +48,7 @@ export default function Home() {
     setNfts(items);
     setLoadingState("loaded");
   }
+  
   async function buyNft(nft) {
     /* needs the user to sign the transaction, so will use Web3Provider and sign it */
     const web3Modal = new Web3Modal();
@@ -94,8 +91,6 @@ export default function Home() {
                   className="rounded-xl mt-4"
                   src={nft.image}
                   frameBorder="0"
-                  //scrolling="auto"
-                  //height="100%"
                   width="100%"
                 ></iframe>
               </>
