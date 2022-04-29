@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import axios from "axios";
 import Web3Modal from "web3modal";
+import {ClipLoader} from "react-spinners"
 
 import { marketplaceAddress } from "../../config";
 
@@ -134,7 +135,9 @@ const NFTPage = () => {
           </div>
         </div>
       ) : (
-        <h1> Not Loaded </h1>
+          <div className=" h-screen w-screen flex justify-center items-center">
+            <ClipLoader loading size={200} color='white' />
+          </div>
       )}
     </div>
   );

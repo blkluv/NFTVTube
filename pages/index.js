@@ -4,13 +4,16 @@ import axios from "axios";
 import Web3Modal from "web3modal";
 import Link from "next/link";
 
+import { ClipLoader } from "react-spinners";
+
+
 import { marketplaceAddress } from "../config";
 
 import NFTMarketplace from "../artifacts/contracts/NFTMarketplace.sol/NFTMarketplace.json";
 
 export default function Home() {
   const [nfts, setNfts] = useState([]);
-  const [loadingState, setLoadingState] = useState("not-loaded");
+  const [loadingState, setLoadingState] = useState(true);
 
   useEffect(() => {
     loadNFTs();
@@ -46,7 +49,7 @@ export default function Home() {
       })
     );
     setNfts(items);
-    setLoadingState("loaded");
+    setLoadingState(false);
   }
   
   async function buyNft(nft) {
@@ -69,15 +72,22 @@ export default function Home() {
     await transaction.wait();
     loadNFTs();
   }
-  
-  if (loadingState === "loaded" && !nfts.length)
+
+  if (loadingState === false && !nfts.length)
     return (
       <h1 className="px-20 py-10 text-3xl">
         Currently no asset in marketplace
       </h1>
     );
   
-  return (
+  else if (loadingState === true) {
+    return (
+      <div className=" h-screen w-screen flex justify-center items-center">
+        <ClipLoader loading size={200} color="white" />
+      </div>
+    );
+  }
+  return ( 
     <div className="flex justify-center m-20">
       <div className="px-4" style={{ maxWidth: "1600px" }}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">

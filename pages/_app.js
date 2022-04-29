@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState,useEffect } from "react";
 import axios from "axios";
 
+
 function MyApp({ Component, pageProps }) {
   const [isConnected, setIsConnected] = useState(false);
   const [currentAccount, setCurrentAccount] = useState(null);
@@ -92,13 +93,16 @@ function MyApp({ Component, pageProps }) {
         params: [txConfig],
       })
     );
+
   };
 
   return (
     <div>
       <nav className="px-5 py-10 bg-gray-900">
         <div className="flex justify-between min-w-md px-16">
-          <p className="text-3xl font-bold text-white"> NFTVTube </p>
+          <Link href="/">
+          <a className="text-3xl font-bold text-white" > NFTVTube </a>
+          </Link>
           <div className="flex">
             <div className="flex mt-4 font-bold ml-8 text-left">
               <Link href="/">
