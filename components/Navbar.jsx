@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
-
+import Image from "next/image";
+import logo from "../assets/LUVNFTV Logo.png";
 
 const Navbar = ({ isConnected, fetchResponse }) => {
   const connectWallet = async () => {
@@ -26,9 +27,9 @@ const Navbar = ({ isConnected, fetchResponse }) => {
 
   return (
     <nav className="px-5 py-10 bg-gray-900">
-      <div className="flex justify-between min-w-md px-16">
+      <div className="flex justify-between min-w-md px-24">
         <Link href="/">
-          <a className="text-3xl font-bold text-white"> NFTVTube </a>
+          <Image src={logo} width="150px" height="50px" className="-m-24" />
         </Link>
         <div className="flex">
           <div className="flex mt-4 font-bold ml-8 text-left">
@@ -67,4 +68,4 @@ const Navbar = ({ isConnected, fetchResponse }) => {
   );
 };
 
-export default Navbar
+export default Navbar;
